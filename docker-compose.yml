@@ -15,9 +15,7 @@ services:
       - "traefik.http.routers.traefik.service=api@internal"
       - "traefik.http.middlewares.strip-dashboard.stripPrefix.prefixes=/dashboard"
       - "traefik.http.routers.traefik.middlewares=strip-dashboard"
-      - "traefik.http.routers.traefik.middlewares=auth"
-      - "traefik.http.middlewares.auth.basicauth.users=admin:$$apr1$$dhfKKzDd$$1llfwmUPc7hQ3tbx3ypEw/"
-
+      
   registro-app:
     build:
       context: ./registro-app
@@ -65,9 +63,9 @@ services:
     build:
       context: ./monitor
     labels:
-      - "traefik.http.routers.monitor.rule=Host(`localhost`) && PathPrefix(`/monitor`)"
+      - "traefik.http.routers.monitor.rule=Host(`localhost`) && PathPrefix(`/panel`)"
       - "traefik.http.routers.monitor.entrypoints=web"
-      - "traefik.http.middlewares.strip-monitor.stripPrefix.prefixes=/monitor"
+      - "traefik.http.middlewares.strip-monitor.stripPrefix.prefixes=/panel"
       - "traefik.http.routers.monitor.middlewares=strip-monitor"
       - "traefik.http.services.monitor.loadbalancer.server.port=80"
 
